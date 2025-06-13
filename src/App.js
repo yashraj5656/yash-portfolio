@@ -4,7 +4,6 @@ function App() {
   const isMobile = window.innerWidth < 768;
 
   const [hoveredCard, setHoveredCard] = useState(null);
-  const [aboutVisible, setAboutVisible] = useState(false);
   const [isHireHovered, setIsHireHovered] = useState(false);
   const [hoveredViewButton, setHoveredViewButton] = useState(null);
 
