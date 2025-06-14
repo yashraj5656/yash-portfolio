@@ -8,12 +8,8 @@ function App() {
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
-
     window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const styles = {
@@ -22,7 +18,7 @@ function App() {
       justifyContent: "space-between",
       alignItems: "center",
       padding: "16px 5vw",
-      backgroundColor: "#007BFF",
+      backgroundColor: "#000",
       color: "#fff",
       position: "sticky",
       top: 0,
@@ -40,8 +36,8 @@ function App() {
     },
     container: {
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      backgroundColor: "#f8f9fa",
-      color: "#003366",
+      backgroundColor: "#fff",
+      color: "#000",
       padding: 0,
       margin: 0,
     },
@@ -55,13 +51,13 @@ function App() {
       color: "#fff",
       textAlign: "center",
       padding: "0 5vw",
-      backgroundColor: "#007BFF",
+      backgroundColor: "#000",
     },
     hireButton: (hovered) => ({
       marginTop: "20px",
-      backgroundColor: hovered ? "black" : "#0056b3",
-      color: "#fff",
-      border: "none",
+      backgroundColor: hovered ? "#fff" : "#000",
+      color: hovered ? "#000" : "#fff",
+      border: "1px solid #fff",
       padding: "12px 28px",
       borderRadius: "25px",
       fontSize: "1rem",
@@ -70,6 +66,8 @@ function App() {
     }),
     section: {
       padding: "60px 5vw",
+      backgroundColor: "#fff",
+      color: "#000",
     },
     aboutSection: {
       display: "flex",
@@ -83,13 +81,13 @@ function App() {
     heading: {
       fontSize: "2rem",
       marginBottom: "16px",
-      borderBottom: "2px solid #007BFF",
+      borderBottom: "2px solid #000",
       display: "inline-block",
     },
     text: {
       fontSize: "1rem",
       lineHeight: "1.6",
-      color: "#333",
+      color: "#000",
     },
     projectGrid: {
       display: "grid",
@@ -98,22 +96,22 @@ function App() {
       marginTop: "40px",
     },
     projectCard: (hovered) => ({
-      backgroundColor: "#ffffff",
+      backgroundColor: "#fff",
       padding: "20px",
       borderRadius: "10px",
       transition: "all 0.3s ease",
       transform: hovered ? "translateY(-5px)" : "translateY(0)",
       boxShadow: hovered
-        ? "0 8px 20px rgba(0, 123, 255, 0.2)"
+        ? "0 8px 20px rgba(0, 0, 0, 0.2)"
         : "0 4px 10px rgba(0, 0, 0, 0.1)",
       cursor: "pointer",
-      border: "1px solid #dee2e6",
+      border: "1px solid #000",
     }),
     viewButton: (hovered) => ({
       marginTop: "10px",
-      backgroundColor: hovered ? "black" : "#007BFF",
-      color: "#fff",
-      border: "none",
+      backgroundColor: hovered ? "#000" : "#fff",
+      color: hovered ? "#fff" : "#000",
+      border: "1px solid #000",
       padding: "8px 20px",
       borderRadius: "20px",
       fontSize: "0.9rem",
@@ -123,7 +121,8 @@ function App() {
     contact: {
       textAlign: "center",
       padding: "40px 5vw",
-      backgroundColor: "#e9f1fc",
+      backgroundColor: "#f1f1f1",
+      color: "#000",
     },
   };
 
@@ -214,7 +213,7 @@ function App() {
               onMouseEnter={() => setHoveredCard(index)}
               onMouseLeave={() => setHoveredCard(null)}
             >
-              <h3 style={{ marginBottom: "10px", color: "#003366" }}>
+              <h3 style={{ marginBottom: "10px", color: "#000" }}>
                 {project.title}
               </h3>
               <p style={styles.text}>{project.description}</p>
