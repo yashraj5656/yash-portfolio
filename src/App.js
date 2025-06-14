@@ -1,23 +1,19 @@
 import React, { useState, useEffect } from "react";
 
 function App() {
-  const isMobile = window.innerWidth < 768;
-
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [isHireHovered, setIsHireHovered] = useState(false);
   const [hoveredViewButton, setHoveredViewButton] = useState(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const aboutSection = document.getElementById("about");
-      const rect = aboutSection.getBoundingClientRect();
-      if (rect.top < window.innerHeight - 100) {
-        setAboutVisible(true);
-      }
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
     };
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const styles = {
@@ -46,8 +42,8 @@ function App() {
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       backgroundColor: "#f8f9fa",
       color: "#003366",
-      padding: "0",
-      margin: "0",
+      padding: 0,
+      margin: 0,
     },
     header: {
       background: "url('/yashraj.jpg') center/cover no-repeat",
@@ -132,21 +128,13 @@ function App() {
   };
 
   return (
-    <div style={styles.container}>
+    <main style={styles.container}>
       <nav style={styles.nav}>
-        <div style={{ fontWeight: "bold", fontSize: "1.2rem", color: "#fff" }}>
-          Yashraj
-        </div>
+        <div style={{ fontWeight: "bold", fontSize: "1.2rem" }}>Yashraj</div>
         <div style={styles.navLinks}>
-          <a href="#about" style={styles.navLink}>
-            About
-          </a>
-          <a href="#projects" style={styles.navLink}>
-            Portfolio
-          </a>
-          <a href="#contact" style={styles.navLink}>
-            Contact
-          </a>
+          <a href="#about" style={styles.navLink}>About</a>
+          <a href="#projects" style={styles.navLink}>Portfolio</a>
+          <a href="#contact" style={styles.navLink}>Contact</a>
         </div>
       </nav>
 
@@ -201,26 +189,22 @@ function App() {
           {[
             {
               title: "GamesOnWeb",
-              description:
-                "Immerse yourself in thrilling web games—experience fun, challenge, and adventure at your fingertips!",
+              description: "Immerse yourself in thrilling web games—experience fun, challenge, and adventure!",
               url: "https://gamesonweb.netlify.app/",
             },
             {
-              title: "E-Commerce ",
-              description:
-                "A modern e-commerce user interface with a clean and responsive layout.",
+              title: "E-Commerce",
+              description: "A modern e-commerce UI with a clean, responsive layout.",
               url: "https://stayyoung.netlify.app/",
             },
             {
-              title: "Personal Blog MERN",
-              description:
-                "MERN Chronicles: Crafting Scalable, Dynamic Blogs for the Modern Web.",
+              title: "Personal Blog (MERN)",
+              description: "MERN Chronicles: Scalable, Dynamic Blogs for the Modern Web.",
               url: "https://theinytimes.netlify.app/",
             },
             {
               title: "Landing Page Design",
-              description:
-                "A high-converting landing page layout built to boost marketing results.",
+              description: "High-converting landing page layout built to boost results.",
               url: "https://landingpagedd.netlify.app/",
             },
           ].map((project, index) => (
@@ -251,19 +235,13 @@ function App() {
       <section id="contact" style={styles.contact}>
         <h2 style={styles.heading}>Contact</h2>
         <p>
-          Email:{" "}
-          <a href="mailto:yashrajsingh3876@gmail.com">
-            yashrajsingh@gmail.com
-          </a>
+          Email: <a href="mailto:yashrajsingh3876@gmail.com">yashrajsingh3876@gmail.com</a>
         </p>
         <p>
-          LinkedIn:{" "}
-          <a href="https://www.linkedin.com/in/yashraj-singh-17205a294">
-            linkedin.com/in/yashraj-singh
-          </a>
+          LinkedIn: <a href="https://www.linkedin.com/in/yashraj-singh-17205a294">linkedin.com/in/yashraj-singh</a>
         </p>
       </section>
-    </div>
+    </main>
   );
 }
 
