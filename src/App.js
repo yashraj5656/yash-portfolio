@@ -7,6 +7,14 @@ function App() {
   const [hoveredViewButton, setHoveredViewButton] = useState(null);
 
   useEffect(() => {
+    document.body.style.margin = 0;
+    document.body.style.padding = 0;
+    document.body.style.backgroundColor = "#000";
+    document.body.style.color = "#fff";
+  }, []);
+  
+
+  useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -36,8 +44,8 @@ function App() {
     },
     container: {
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      backgroundColor: "#fff",
-      color: "#000",
+      backgroundColor: "#000",
+      color: "#fff",
       padding: 0,
       margin: 0,
     },
