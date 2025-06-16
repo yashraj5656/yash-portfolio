@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
@@ -6,18 +6,45 @@ function App() {
   const [isHireHovered, setIsHireHovered] = useState(false);
   const [hoveredViewButton, setHoveredViewButton] = useState(null);
 
+  // Refs for animation targets
+  const animatedRefs = useRef([]);
+
   useEffect(() => {
     document.body.style.margin = 0;
     document.body.style.padding = 0;
     document.body.style.backgroundColor = "#000";
     document.body.style.color = "#fff";
   }, []);
-  
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Scroll-based animation (simple fade-in-left and zoom)
+  useEffect(() => {
+    const refsSnapshot = [...animatedRefs.current];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate");
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    refsSnapshot.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      refsSnapshot.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
   }, []);
 
   const styles = {
@@ -59,7 +86,6 @@ function App() {
       color: "#fff",
       textAlign: "center",
       padding: "0 5vw",
-      backgroundColor: "#000",
     },
     hireButton: (hovered) => ({
       marginTop: "20px",
@@ -135,34 +161,64 @@ function App() {
   };
 
   return (
-    <main style={styles.container}>
-      <nav style={styles.nav}>
-        <div style={{ fontWeight: "bold", fontSize: "1.2rem" }}>Yashraj</div>
-        <div style={styles.navLinks}>
-          <a href="#about" style={styles.navLink}>About</a>
-          <a href="#projects" style={styles.navLink}>Portfolio</a>
-          <a href="#contact" style={styles.navLink}>Contact</a>
-        </div>
-      </nav>
+    <>
+      <style>{`
+        .fade-in-left {
+          opacity: 0;
+          transform: translateX(-50px);
+          transition: all 1s ease-out;
+        }
 
-      <header style={styles.header}>
-        <h1>Hi, I’m Yashraj Singh</h1>
-        <p>Freelance Creative & Professional Web Developer</p>
-        <a href="mailto:yashrajsingh3876@gmail.com" style={{ textDecoration: "none" }}>
-          <button
-            style={styles.hireButton(isHireHovered)}
-            onMouseEnter={() => setIsHireHovered(true)}
-            onMouseLeave={() => setIsHireHovered(false)}
-          >
-            HIRE ME
-          </button>
-        </a>
-      </header>
+        .zoom-in {
+          opacity: 0;
+          transform: scale(0.8);
+          transition: all 1s ease-out;
+        }
 
-      <section id="about" style={styles.section}>
-        <div style={styles.aboutSection}>
-          <div style={styles.aboutTextBox}>
-            <h2 style={styles.heading}>Introduction About Me</h2>
+        .animate {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      `}</style>
+
+      <main style={styles.container}>
+        <nav style={styles.nav}>
+          <div style={{ fontWeight: "bold", fontSize: "1.2rem" }}>Yashraj</div>
+          <div style={styles.navLinks}>
+            <a href="#about" style={styles.navLink}>About</a>
+            <a href="#projects" style={styles.navLink}>Portfolio</a>
+            <a href="#contact" style={styles.navLink}>Contact</a>
+          </div>
+        </nav>
+
+        <header style={styles.header}>
+          <h1 ref={(el) => (animatedRefs.current[0] = el)} className="zoom-in">
+            Hi, I’m Yashraj Singh
+          </h1>
+          <p ref={(el) => (animatedRefs.current[1] = el)} className="fade-in-left">
+          Full-Stack MERN Developer | End-to-End Web Solutions from Design to Deployment
+          </p>
+          <a href="mailto:yashrajsingh3876@gmail.com" style={{ textDecoration: "none" }}>
+            <button
+              style={styles.hireButton(isHireHovered)}
+              onMouseEnter={() => setIsHireHovered(true)}
+              onMouseLeave={() => setIsHireHovered(false)}
+              ref={(el) => (animatedRefs.current[2] = el)}
+              className="zoom-in"
+            >
+              HIRE ME
+            </button>
+          </a>
+        </header>
+
+        <section id="about" style={styles.section}>
+          <div style={styles.aboutSection}>
+            <div
+              style={styles.aboutTextBox}
+              ref={(el) => (animatedRefs.current[3] = el)}
+              className="fade-in-left"
+            >
+              <h2 style={styles.heading}>Introduction About Me</h2>
             <p style={styles.text}>
               Hi, I'm Yashraj Singh — a MERN Stack Web Developer. I specialize
               in building modern, responsive, and scalable websites using
@@ -186,69 +242,64 @@ function App() {
               with robust, maintainable code and a strong focus on user
               experience — I'm here to help.
             </p>
-          </div>
-        </div>
-      </section>
 
-      <section id="projects" style={styles.section}>
-        <h2 style={styles.heading}>Portfolio</h2>
-        <div style={styles.projectGrid}>
-          {[
-            {
-              title: "GamesOnWeb",
-              description: "Immerse yourself in thrilling web games—experience fun, challenge, and adventure!",
-              url: "https://gamesonweb.netlify.app/",
-            },
-            {
-              title: "E-Commerce",
-              description: "A modern e-commerce UI with a clean, responsive layout.",
-              url: "https://stayyoung.netlify.app/",
-            },
-            {
-              title: "Personal Blog (MERN)",
-              description: "MERN Chronicles: Scalable, Dynamic Blogs for the Modern Web.",
-              url: "https://theinytimes.netlify.app/",
-            },
-            {
-              title: "Landing Page Design",
-              description: "High-converting landing page layout built to boost results.",
-              url: "https://landingpagedd.netlify.app/",
-            },
-          ].map((project, index) => (
-            <div
-              key={index}
-              style={styles.projectCard(hoveredCard === index)}
-              onMouseEnter={() => setHoveredCard(index)}
-              onMouseLeave={() => setHoveredCard(null)}
-            >
-              <h3 style={{ marginBottom: "10px", color: "#000" }}>
-                {project.title}
-              </h3>
-              <p style={styles.text}>{project.description}</p>
-              <a href={project.url} target="_blank" rel="noopener noreferrer">
-                <button
-                  style={styles.viewButton(hoveredViewButton === index)}
-                  onMouseEnter={() => setHoveredViewButton(index)}
-                  onMouseLeave={() => setHoveredViewButton(null)}
-                >
-                  View Project
-                </button>
-              </a>
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      <section id="contact" style={styles.contact}>
-        <h2 style={styles.heading}>Contact</h2>
-        <p>
-          Email: <a href="mailto:yashrajsingh3876@gmail.com">yashrajsingh3876@gmail.com</a>
-        </p>
-        <p>
-          LinkedIn: <a href="https://www.linkedin.com/in/yashraj-singh-17205a294">linkedin.com/in/yashraj-singh</a>
-        </p>
-      </section>
-    </main>
+        <section id="projects" style={styles.section}>
+          <h2
+            style={styles.heading}
+            ref={(el) => (animatedRefs.current[4] = el)}
+            className="zoom-in"
+          >
+            Portfolio
+          </h2>
+          <div style={styles.projectGrid}>
+            {[
+              { title: "GamesOnWeb", description: "Immerse yourself in thrilling web games...", url: "https://gamesonweb.netlify.app/" },
+              { title: "E-Commerce", description: "A modern e-commerce UI...", url: "https://stayyoung.netlify.app/" },
+              { title: "Personal Blog (MERN)", description: "MERN Chronicles: Scalable, Dynamic Blogs...", url: "https://theinytimes.netlify.app/" },
+              { title: "Landing Page Design", description: "High-converting landing page layout...", url: "https://samplelandingpagel.netlify.app/" }
+            ].map((project, index) => (
+              <div
+                key={index}
+                ref={(el) => (animatedRefs.current[5 + index] = el)}
+                className="fade-in-left"
+                style={styles.projectCard(hoveredCard === index)}
+                onMouseEnter={() => setHoveredCard(index)}
+                onMouseLeave={() => setHoveredCard(null)}
+              >
+                <h3 style={{ marginBottom: "10px", color: "#000" }}>
+                  {project.title}
+                </h3>
+                <p style={styles.text}>{project.description}</p>
+                <a href={project.url} target="_blank" rel="noopener noreferrer">
+                  <button
+                    style={styles.viewButton(hoveredViewButton === index)}
+                    onMouseEnter={() => setHoveredViewButton(index)}
+                    onMouseLeave={() => setHoveredViewButton(null)}
+                  >
+                    View Project
+                  </button>
+                </a>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section
+          id="contact"
+          style={styles.contact}
+          ref={(el) => (animatedRefs.current[10] = el)}
+          className="fade-in-left"
+        >
+          <h2 style={styles.heading}>Contact</h2>
+          <p>Email: <a href="mailto:yashrajsingh3876@gmail.com">yashrajsingh3876@gmail.com</a></p>
+          <p>LinkedIn: <a href="https://www.linkedin.com/in/yashraj-singh-17205a294">linkedin.com/in/yashraj-singh</a></p>
+        </section>
+      </main>
+    </>
   );
 }
 
