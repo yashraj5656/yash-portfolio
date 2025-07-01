@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
+import './App.css';
 
 function App() {
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [isHireHovered, setIsHireHovered] = useState(false);
   const [hoveredViewButton, setHoveredViewButton] = useState(null);
-
-  // Refs for animation targets
   const animatedRefs = useRef([]);
 
   useEffect(() => {
@@ -22,7 +21,6 @@ function App() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Scroll-based animation (simple fade-in-left and zoom)
   useEffect(() => {
     const refsSnapshot = [...animatedRefs.current];
     const observer = new IntersectionObserver(
@@ -77,7 +75,7 @@ function App() {
       margin: 0,
     },
     header: {
-      background: "url('/yashraj.jpg') center/cover no-repeat",
+      position: "relative",
       height: "110vh",
       display: "flex",
       flexDirection: "column",
@@ -86,6 +84,8 @@ function App() {
       color: "#fff",
       textAlign: "center",
       padding: "0 5vw",
+      overflow: "hidden",
+      zIndex: 0,
     },
     hireButton: (hovered) => ({
       marginTop: "20px",
@@ -168,17 +168,86 @@ function App() {
           transform: translateX(-50px);
           transition: all 1s ease-out;
         }
-
         .zoom-in {
           opacity: 0;
           transform: scale(0.8);
           transition: all 1s ease-out;
         }
-
         .animate {
           opacity: 1 !important;
           transform: none !important;
         }
+        .background-video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          z-index: -1;
+        }
+          .card {
+    width: 270px;
+    height: 350px;
+    background: lightgrey;
+    border-radius: 20px;
+    box-shadow: -8px 8px 0px 5px rgba(50, 50, 50, 0.2);
+    border: solid 2px white;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.5s ease;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    transform: rotate(3deg) skewX(3deg);
+  }
+
+  #cardtop {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: relative;
+    transition: all 0.1s ease;
+    color: #fc6969;
+  }
+
+
+
+
+
+
+  #cardbrightfilter {
+    width: 450px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    transform: rotate(-40deg) translateX(-15%) translateY(-160%);
+    transition: all 0.5s ease;
+    z-index: 1;
+  }
+
+
+
+  .card:hover {
+    transform: translateY(-5%);
+    box-shadow: 0px 20px 10px rgba(50, 50, 50, 0.2);
+  }
+
+  .card:hover #cardbrightfilter {
+    transform: rotate(-42deg) translateX(-15%) translateY(-79%);
+  }
+
+  .card:active #cardtop {
+    transform: scale(1.05);
+  }
+
+  .card:active #cardbottom {
+    background-color: #fc6969;
+    color: white;
+  }
+
+  .card:active #cardbottom hr {
+    background-color: white;
+  }
       `}</style>
 
       <main style={styles.container}>
@@ -192,11 +261,15 @@ function App() {
         </nav>
 
         <header style={styles.header}>
+          <video className="background-video" autoPlay loop muted playsInline>
+            <source src="/bg.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
           <h1 ref={(el) => (animatedRefs.current[0] = el)} className="zoom-in">
             Hi, I’m Yashraj Singh
           </h1>
           <p ref={(el) => (animatedRefs.current[1] = el)} className="fade-in-left">
-          Full-Stack MERN Developer | End-to-End Web Solutions from Design to Deployment
+            Full-Stack MERN Developer | End-to-End Web Solutions from Design to Deployment
           </p>
           <a href="mailto:yashrajsingh3876@gmail.com" style={{ textDecoration: "none" }}>
             <button
@@ -219,7 +292,7 @@ function App() {
               className="fade-in-left"
             >
               <h2 style={styles.heading}>Introduction About Me</h2>
-            <p style={styles.text}>
+                 <p style={styles.text}>
               Hi, I'm Yashraj Singh — a MERN Stack Web Developer. I specialize
               in building modern, responsive, and scalable websites using
               MongoDB, Express.js, React, and Node.js. From interactive user
@@ -242,10 +315,31 @@ function App() {
               with robust, maintainable code and a strong focus on user
               experience — I'm here to help.
             </p>
-
             </div>
           </div>
+        <div className="card-section" style={{ marginTop: "40px", display: "flex", justifyContent: "left" }}>
+          <div className="card">
+    
+            <div id="cardbrightfilter">
+
+            </div>
+            <div id="cardtop">
+
+              <img src="/yashraj.jpg" alt="img"></img>
+            </div>
+
+          </div>
+          
+        </div>
+
+        
+
+
+
         </section>
+        
+
+        
 
         <section id="projects" style={styles.section}>
           <h2
