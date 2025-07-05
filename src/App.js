@@ -133,10 +133,10 @@ function App() {
       backgroundColor: "#fff",
       padding: "20px",
       borderRadius: "10px",
-      transition: "all 0.3s ease",
-      transform: hovered ? "translateY(-5px)" : "translateY(0)",
+      transition: "all 0.4s ease",
+      transform: hovered ? "translateY(-8px) scale(1.03)" : "translateY(0) scale(1)",
       boxShadow: hovered
-        ? "0 8px 20px rgba(0, 0, 0, 0.2)"
+        ? "0 12px 24px rgba(0, 0, 0, 0.2)"
         : "0 4px 10px rgba(0, 0, 0, 0.1)",
       cursor: "pointer",
       border: "1px solid #000",
@@ -397,15 +397,65 @@ function App() {
         </section>
 
         <section
-          id="contact"
-          style={styles.contact}
-          ref={(el) => (animatedRefs.current[10] = el)}
-          className="fade-in-left"
-        >
-          <h2 style={styles.heading}>Contact</h2>
-          <p>Email: <a href="mailto:yashrajsingh3876@gmail.com">yashrajsingh3876@gmail.com</a></p>
-          <p>LinkedIn: <a href="https://www.linkedin.com/in/yashraj-singh-17205a294">linkedin.com/in/yashraj-singh</a></p>
-        </section>
+  id="contact"
+  style={{
+    ...styles.contact,
+    backgroundColor: "#000",
+    color: "#fff",
+    padding: "80px 5vw",
+  }}
+  ref={(el) => (animatedRefs.current[10] = el)}
+  className="fade-in-left"
+>
+  <h2 style={{ ...styles.heading, color: "#fff", borderBottom: "2px solid #fff" }}>Let's Connect</h2>
+  <p style={{ fontSize: "1rem", marginTop: "10px", marginBottom: "30px", color: "#ccc" }}>
+    Feel free to reach out via email or connect on LinkedIn.
+  </p>
+
+  <div style={{
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "20px",
+  }}>
+    <a
+      href="mailto:yashrajsingh3876@gmail.com"
+      style={{
+        color: "#fff",
+        textDecoration: "none",
+        fontSize: "1.1rem",
+        border: "1px solid #fff",
+        padding: "12px 24px",
+        borderRadius: "30px",
+        transition: "all 0.3s ease",
+      }}
+      onMouseEnter={(e) => e.target.style.backgroundColor = "#fff"}
+      onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
+    >
+      ✉️ yashrajsingh3876@gmail.com
+    </a>
+
+    <a
+      href="https://www.linkedin.com/in/yashraj-singh-17205a294"
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        color: "#fff",
+        textDecoration: "none",
+        fontSize: "1.1rem",
+        border: "1px solid #fff",
+        padding: "12px 24px",
+        borderRadius: "30px",
+        transition: "all 0.3s ease",
+      }}
+      onMouseEnter={(e) => e.target.style.backgroundColor = "#fff"}
+      onMouseLeave={(e) => e.target.style.backgroundColor = "transparent"}
+    >
+      🔗 LinkedIn Profile
+    </a>
+  </div>
+</section>
+
       </main>
     </>
   );
