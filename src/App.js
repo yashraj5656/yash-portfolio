@@ -383,7 +383,7 @@ function App() {
     {
       title: "E-Commerce",
       description: "A modern e-commerce UI that offers a seamless shopping experience.",
-      details: "Tech: React, Context API, Stripe (mock), Netlify. Features: Product filtering, cart.",
+      details: "Tech: React, Context API, Stripe (mock), Netlify.",
       imageUrl: "/stayyoung.png",
       url: "https://stayyoung.netlify.app/"
     },
