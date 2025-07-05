@@ -324,36 +324,76 @@ function App() {
             Portfolio
           </h2>
           <div style={styles.projectGrid}>
-            {[
-              { title: "GamesOnWeb", description: "Immerse yourself in thrilling web games...", url: "https://gamesonweb.netlify.app/" },
-              { title: "E-Commerce", description: "A modern e-commerce UI...", url: "https://stayyoung.netlify.app/" },
-              { title: "Personal Blog (MERN)", description: "MERN Chronicles: Scalable, Dynamic Blogs...", url: "https://theinytimes.netlify.app/" },
-              { title: "Landing Page Design", description: "High-converting landing page layout...", url: "https://samplelandingpagel.netlify.app/" }
-            ].map((project, index) => (
-              <div
-                key={index}
-                ref={(el) => (animatedRefs.current[5 + index] = el)}
-                className="fade-in-left"
-                style={styles.projectCard(hoveredCard === index)}
-                onMouseEnter={() => setHoveredCard(index)}
-                onMouseLeave={() => setHoveredCard(null)}
-              >
-                <h3 style={{ marginBottom: "10px", color: "#000" }}>
-                  {project.title}
-                </h3>
-                <p style={styles.text}>{project.description}</p>
-                <a href={project.url} target="_blank" rel="noopener noreferrer">
-                  <button
-                    style={styles.viewButton(hoveredViewButton === index)}
-                    onMouseEnter={() => setHoveredViewButton(index)}
-                    onMouseLeave={() => setHoveredViewButton(null)}
-                  >
-                    View Project
-                  </button>
-                </a>
-              </div>
-            ))}
-          </div>
+  {[
+    {
+      title: "DevPath - Developer Roadmaps",
+      description: "A modern learning platform providing structured developer roadmaps and best practices.",
+      details: "Tech: React.js, React Router, Netlify. Features: Role-based learning paths, SEO-friendly pages, responsive UI.",
+      imageUrl: "/devpath.png",
+      url: "https://devpathrun.netlify.app/"
+    },
+    
+    {
+      title: "GamesOnWeb",
+      description: "Immerse yourself in thrilling web games built using React & JavaScript.",
+      details: "Tech: React, HTML5 Canvas, Netlify. Features: Keyboard & touch controls, animations.",
+      imageUrl: "/gamesonweb.png",  // Add image paths in your public folder
+      url: "https://gamesonweb.netlify.app/"
+    },
+    {
+      title: "E-Commerce",
+      description: "A modern e-commerce UI that offers a seamless shopping experience.",
+      details: "Tech: React, Context API, Stripe (mock), Netlify. Features: Product filtering, cart.",
+      imageUrl: "/stayyoung.png",
+      url: "https://stayyoung.netlify.app/"
+    },
+    {
+      title: "Personal Blog (MERN)",
+      description: "Dynamic blogging platform with Markdown posts.",
+      details: "Tech: MERN, JWT Auth, MongoDB Atlas. Features: CRUD blogs, comments, rich editor.",
+      imageUrl: "/tyj.png",
+      url: "https://theinytimes.netlify.app/"
+    }
+
+  ].map((project, index) => (
+    <div
+      key={index}
+      ref={(el) => (animatedRefs.current[5 + index] = el)}
+      className="fade-in-left"
+      style={styles.projectCard(hoveredCard === index)}
+      onMouseEnter={() => setHoveredCard(index)}
+      onMouseLeave={() => setHoveredCard(null)}
+    >
+      <div style={{ overflow: "hidden", borderRadius: "8px", marginBottom: "10px" }}>
+  <img
+    src={project.imageUrl}
+    alt={project.title}
+    style={{
+      width: "100%",
+      height: "180px",
+      objectFit: "cover",
+      transition: "transform 0.5s ease",
+      transform: hoveredCard === index ? "scale(1.1)" : "scale(1)",
+    }}
+  />
+</div>
+
+      <h3 style={{ marginBottom: "8px", color: "#000" }}>{project.title}</h3>
+      <p style={styles.text}>{project.description}</p>
+      <p style={{ ...styles.text, fontSize: "0.85rem", color: "#333" }}>{project.details}</p>
+      <a href={project.url} target="_blank" rel="noopener noreferrer">
+        <button
+          style={styles.viewButton(hoveredViewButton === index)}
+          onMouseEnter={() => setHoveredViewButton(index)}
+          onMouseLeave={() => setHoveredViewButton(null)}
+        >
+          View Project
+        </button>
+      </a>
+    </div>
+  ))}
+</div>
+
         </section>
 
         <section
