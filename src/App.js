@@ -68,7 +68,7 @@ function App() {
       cursor: "pointer",
     },
     container: {
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+      fontFamily: "'Outfit', sans-serif",
       backgroundColor: "#000",
       color: "#fff",
       padding: 0,
@@ -76,7 +76,7 @@ function App() {
     },
     header: {
       position: "relative",
-      height: "110vh",
+      height: "100vh",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -88,12 +88,12 @@ function App() {
       zIndex: 0,
     },
     hireButton: (hovered) => ({
-      marginTop: "20px",
+      marginTop: "30px",
       backgroundColor: hovered ? "#fff" : "#000",
       color: hovered ? "#000" : "#fff",
       border: "1px solid #fff",
-      padding: "12px 28px",
-      borderRadius: "25px",
+      padding: "12px 32px",
+      borderRadius: "40px",
       fontSize: "1rem",
       cursor: "pointer",
       transition: "all 0.3s ease",
@@ -163,6 +163,8 @@ function App() {
   return (
     <>
       <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap');
+
         .fade-in-left {
           opacity: 0;
           transform: translateX(-50px);
@@ -186,68 +188,54 @@ function App() {
           object-fit: cover;
           z-index: -1;
         }
-          .card {
-    width: 270px;
-    height: 350px;
-    background: lightgrey;
-    border-radius: 20px;
-    box-shadow: -8px 8px 0px 5px rgba(50, 50, 50, 0.2);
-    border: solid 2px white;
-    overflow: hidden;
-    position: relative;
-    transition: all 0.5s ease;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    transform: rotate(3deg) skewX(3deg);
-  }
-
-  #cardtop {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: relative;
-    transition: all 0.1s ease;
-    color: #fc6969;
-  }
-
-
-
-
-
-
-  #cardbrightfilter {
-    width: 450px;
-    height: 200px;
-    background-color: rgba(255, 255, 255, 0.5);
-    position: absolute;
-    transform: rotate(-40deg) translateX(-15%) translateY(-160%);
-    transition: all 0.5s ease;
-    z-index: 1;
-  }
-
-
-
-  .card:hover {
-    transform: translateY(-5%);
-    box-shadow: 0px 20px 10px rgba(50, 50, 50, 0.2);
-  }
-
-  .card:hover #cardbrightfilter {
-    transform: rotate(-42deg) translateX(-15%) translateY(-79%);
-  }
-
-  .card:active #cardtop {
-    transform: scale(1.05);
-  }
-
-  .card:active #cardbottom {
-    background-color: #fc6969;
-    color: white;
-  }
-
-  .card:active #cardbottom hr {
-    background-color: white;
-  }
+        .card {
+          width: 270px;
+          height: 350px;
+          background: lightgrey;
+          border-radius: 20px;
+          box-shadow: -8px 8px 0px 5px rgba(50, 50, 50, 0.2);
+          border: solid 2px white;
+          overflow: hidden;
+          position: relative;
+          transition: all 0.5s ease;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+          transform: rotate(3deg) skewX(3deg);
+        }
+        #cardtop {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.1s ease;
+          color: #fc6969;
+        }
+        #cardbrightfilter {
+          width: 450px;
+          height: 200px;
+          background-color: rgba(255, 255, 255, 0.5);
+          position: absolute;
+          transform: rotate(-40deg) translateX(-15%) translateY(-160%);
+          transition: all 0.5s ease;
+          z-index: 1;
+        }
+        .card:hover {
+          transform: translateY(-5%);
+          box-shadow: 0px 20px 10px rgba(50, 50, 50, 0.2);
+        }
+        .card:hover #cardbrightfilter {
+          transform: rotate(-42deg) translateX(-15%) translateY(-79%);
+        }
+        .card:active #cardtop {
+          transform: scale(1.05);
+        }
+        .card:active #cardbottom {
+          background-color: #fc6969;
+          color: white;
+        }
+        .card:active #cardbottom hr {
+          background-color: white;
+        }
       `}</style>
 
       <main style={styles.container}>
@@ -263,15 +251,14 @@ function App() {
         <header style={styles.header}>
           <video className="background-video" autoPlay loop muted playsInline>
             <source src="/bg.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
           </video>
-          <h1 ref={(el) => (animatedRefs.current[0] = el)} className="zoom-in">
-            Hi, I’m Yashraj Singh
+          <h1 ref={(el) => (animatedRefs.current[0] = el)} className="zoom-in" style={{ fontSize: isMobile ? "2.5rem" : "4.5rem", fontWeight: 800, letterSpacing: "-1px", lineHeight: 1.1 }}>
+            Yashraj Singh Chundawat
           </h1>
-          <p ref={(el) => (animatedRefs.current[1] = el)} className="fade-in-left">
-            Full-Stack MERN Developer | End-to-End Web Solutions from Design to Deployment
+          <p ref={(el) => (animatedRefs.current[1] = el)} className="fade-in-left" style={{ fontSize: isMobile ? "1rem" : "1.5rem", fontWeight: 400, marginTop: "20px" }}>
+            Showcasing Expertise in Web Development
           </p>
-          <a href="mailto:yashrajsingh3876@gmail.com" style={{ textDecoration: "none" }}>
+          <a href="#projects" style={{ textDecoration: "none", marginTop: "30px" }}>
             <button
               style={styles.hireButton(isHireHovered)}
               onMouseEnter={() => setIsHireHovered(true)}
@@ -279,12 +266,12 @@ function App() {
               ref={(el) => (animatedRefs.current[2] = el)}
               className="zoom-in"
             >
-              HIRE ME
+              Explore
             </button>
           </a>
         </header>
 
-        <section id="about" style={styles.section}>
+         <section id="about" style={styles.section}>
           <div style={styles.aboutSection}>
             <div
               style={styles.aboutTextBox}
@@ -317,20 +304,7 @@ function App() {
             </p>
             </div>
           </div>
-        <div className="card-section" style={{ marginTop: "40px", display: "flex", justifyContent: "left" }}>
-          <div className="card">
-    
-            <div id="cardbrightfilter">
-
-            </div>
-            <div id="cardtop">
-
-              <img src="/yashraj.jpg" alt="img"></img>
-            </div>
-
-          </div>
-          
-        </div>
+       
 
         
 
