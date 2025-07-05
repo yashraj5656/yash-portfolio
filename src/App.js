@@ -311,6 +311,46 @@ function App() {
 
 
         </section>
+
+
+        <section id="skills" style={styles.section}>
+  <div
+    ref={(el) => (animatedRefs.current[11] = el)}
+    className="fade-in-left"
+  >
+    <h2 style={styles.heading}>Skills & Expertise</h2>
+
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+      gap: "40px",
+      marginTop: "30px"
+    }}>
+      <div>
+        <h3 style={{ ...styles.text, fontWeight: "600", marginBottom: "10px" }}>Technical Skills</h3>
+        <ul style={{ ...styles.text, paddingLeft: "20px" }}>
+          <li>HTML, CSS, JavaScript, PHP, MySQL</li>
+          <li>MERN Stack (MongoDB, Express.js, React.js, Node.js)</li>
+          <li>SEO Techniques & Web Performance Optimization</li>
+          <li>Social Media Management & Digital Marketing</li>
+          <li>Graphic Design & Video Editing</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 style={{ ...styles.text, fontWeight: "600", marginBottom: "10px" }}>Soft Skills</h3>
+        <ul style={{ ...styles.text, paddingLeft: "20px" }}>
+          <li>Leadership & Team Management</li>
+          <li>Problem Solving & Critical Thinking</li>
+          <li>Time Management & Adaptability</li>
+          <li>Effective Communication</li>
+          <li>Client Collaboration & Business Insight</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
         
 
         
