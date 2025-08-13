@@ -374,11 +374,11 @@ function App() {
     },
     
     {
-      title: "GamesOnWeb",
-      description: "Immerse yourself in thrilling web games built using React & JavaScript.",
+      title: "WenGenX",
+      description: "Immerse yourself in thrilling web built using React & JavaScript.",
       details: "Tech: React, HTML5 Canvas, Netlify. Features: Keyboard & touch controls, animations.",
-      imageUrl: "/gamesonweb.png",  // Add image paths in your public folder
-      url: "https://gamesonweb.netlify.app/"
+      imageUrl: "/wengenx.png",  // Add image paths in your public folder
+      url: "https://webgenx.netlify.app/"
     },
     {
       title: "E-Commerce",
@@ -392,7 +392,7 @@ function App() {
       description: "Dynamic blogging platform with Markdown posts.",
       details: "Tech: MERN, JWT Auth, MongoDB Atlas. Features: CRUD blogs, comments, rich editor.",
       imageUrl: "/tyj.png",
-      url: "https://theinytimes.netlify.app/"
+      url: "https://theinyt7878imes.netlify.app/"
     }
 
   ].map((project, index) => (
