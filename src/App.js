@@ -366,11 +366,11 @@ function App() {
           <div style={styles.projectGrid}>
   {[
     {
-      title: "DevPath - Developer Roadmaps",
+      title: "Zenqentra - Developer Roadmaps",
       description: "A modern learning platform providing structured developer roadmaps and best practices.",
       details: "Tech: React.js, React Router, Netlify. Features: Role-based learning paths, SEO-friendly pages, responsive UI.",
       imageUrl: "/devpath.png",
-      url: "https://devpathrun.netlify.app/"
+      url: "https://zyqentra.netlify.app/"
     },
     
     {
